@@ -1,36 +1,59 @@
-<html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">   
 
-<head>
     <title>{% block page_title %}{% endblock %}</title>
 </head>
 
 <body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">DjangoApp</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+                {% if user.is_authenticated %}
+				<li class="nav-item">
+                    <a href="{% url 'profile' %}" class="nav-link">Profile</a>
+				</li>
+				<li class="nav-item">
+                    <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+				</li>
+                {% else %}
+				<li class="nav-item">
+                    <a href="{% url 'login' %}" class="nav-link">Login</a>
+				</li>
+                <li class="nav-item">
+                    <a href="{% url 'registration' %}" class="nav-link">Register</a>
+				</li>
+                {% endif %}
+			</ul>
+		</div>
+	</nav>
+
     <h1>
         {% block page_heading %}{% endblock %}
     </h1>
 
-    <nav>
-        <ul>
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'profile' %}">Profile</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-            {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'registration' %}">Register</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-
-    <hr> 
     {% if messages %}
-        <div>
-            {% for message in messages %} 
-                {{ message }} 
-            {% endfor %}
-        </div>
-    {% endif %} 
+    <div>
+        {% for message in messages %} 
+            {{ message }} 
+        {% endfor %}
+    </div>
+    {% endif %} {% block content %}{% endblock %}
 
-    {% block content %}{% endblock %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 
 </html>
